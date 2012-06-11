@@ -1,4 +1,8 @@
 Bigsky::Application.routes.draw do
+  get "page_structure/home"
+
+  get "page_structure/help"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
