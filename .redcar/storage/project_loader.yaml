@@ -1,0 +1,4 @@
+--- 
+open_files: 
+  - app/helpers/main_helper.rb
+  - app/views/layouts/application.html.erb
