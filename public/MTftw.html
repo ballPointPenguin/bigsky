@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Imagery</title>
+    <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.0/js/dojo/dijit/themes/claro/claro.css">
+    <style>
+      html, body { height: 100%; width: 100%; margin: 0; padding: 0; }
+    </style>
+    <script type="text/javascript">var djConfig = {parseOnLoad: true};</script>
+    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=3.0"></script>
+    <script type="text/javascript">
+      dojo.require("dijit.layout.BorderContainer");
+      dojo.require("dijit.layout.ContentPane");
+      dojo.require("esri.map");
+      dojo.require("esri.layers.FeatureLayer");
+      var map;
+      function init() {
+        var initExtent = new esri.geometry.Extent({"xmin":-12985376.055445,"ymin":5259686.45358352,"xmax":-11514802.635855,"ymax":6536362.04451647,"spatialReference":{"wkid":102100}});
+        map = new esri.Map("map",{extent:initExtent});
+        //Add world imagery to the map. View the ArcGIS Online site for services http://arcgisonline/home/search.html?t=content&f=typekeywords:service    
+
+        var basemap = new esri.layers.ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer");
+        map.addLayer(basemap);
+        var referenceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer");
+        //map.addLayer(referenceLayer);
+        var parcelLayer = new esri.layers.FeatureLayer("http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/mt_parcels/MapServer/0",{
+          mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"]
+        });
+        //map.addLayer(parcelLayer);
+        var waterLayer0 = new esri.layers.FeatureLayer("http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/0",{
+          mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"]
+        });
+        //map.addLayer(waterLayer0);
+        var waterLayer1 = new esri.layers.FeatureLayer("http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/1",{
+          mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"]
+        });
+        //map.addLayer(waterLayer1);
+        var waterLayer2 = new esri.layers.FeatureLayer("http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/2",{
+          mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"]
+        });
+        //map.addLayer(waterLayer2);
+        var waterLayer3 = new esri.layers.FeatureLayer("http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/3",{
+          mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"]
+        });
+        //map.addLayer(waterLayer3);
+        var waterLayer4 = new esri.layers.FeatureLayer("http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/4",{
+          mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"]
+        });
+        map.addLayer(waterLayer4);
+        var waterLayer5 = new esri.layers.FeatureLayer("http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/5",{
+          mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"]
+        });
+        //map.addLayer(waterLayer5);
+
+
+
+
+
+
+        //resize the map when the browser resizes - view the 'Resizing and repositioning the map' section in 
+        //the following help topic for more details http://helpdev.esri.com/EN/webapi/javascript/arcgis/help/jshelp_start.htm#jshelp/inside_guidelines.htm
+        var resizeTimer;
+        dojo.connect(map, 'onLoad', function(theMap) {
+          dojo.connect(dijit.byId('map'), 'resize', function() {  //resize the map if the div is resized
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout( function() {
+              map.resize();
+              map.reposition();
+            }, 500);
+          });
+        });
+      }
+
+      dojo.addOnLoad(init);
+    </script>
+  </head>
+  
+  <body class="tundra">
+    <div dojotype="dijit.layout.BorderContainer" design="headline" gutters="false"
+    style="width: 100%; height: 100%; margin: 0;">
+      <div id="map" dojotype="dijit.layout.ContentPane" region="center" style="overflow:hidden;">
+      </div>
+    </div>
+  </body>
+
+</html>
