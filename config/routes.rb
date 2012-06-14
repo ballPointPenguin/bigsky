@@ -1,4 +1,13 @@
 Bigsky::Application.routes.draw do
+#  get "main/home"
+  root to: "main#home"
+
+  get "main/help"
+
+  get "main/about"
+
+  get "main/contact"
+
   get "page_structure/home"
 
   get "page_structure/help"

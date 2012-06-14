@@ -1,0 +1,18 @@
+--- 
+cursor_positions: 
+  - :path: app/controllers/application_controller.rb
+    :cursor_offset: 80
+    :timestamp: 2012-06-10 12:18:51 -07:00
+  - :path: app/controllers/page_structure_controller.rb
+    :cursor_offset: 0
+    :timestamp: 2012-06-11 15:53:03 -07:00
+  - :path: app/helpers/application_helper.rb
+    :cursor_offset: 0
+    :timestamp: 2012-06-10 12:18:51 -07:00
+  - :path: app/helpers/main_helper.rb
+    :cursor_offset: 0
+    :timestamp: 2012-06-11 16:09:12 -07:00
+  - :path: app/views/layouts/application.html.erb
+    :cursor_offset: 233
+    :timestamp: 2012-06-10 12:18:51 -07:00
+files_to_retain: 0
