@@ -71,32 +71,40 @@
         });
         var basemap = new esri.layers.ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer");
           map.addLayer(basemap);
-        var referenceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer");
-          map.addLayer(referenceLayer);
+        // var referenceLayer = new esri.layers.ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer");
+        //   map.addLayer(referenceLayer);
 
         var layers = [
-          // {"options": 
-          //   {"id": "Reference", "visible": true},
-          //   "url": "http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer"},
-          {"options": 
+          { "tiledServer": true,
+            "options": 
+            {"id": "Reference", "visible": true},
+            "url": "http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer"},
+          { "tiledServer": false,
+            "options": 
             {"id": "Parcels", "visible": false, "mode": esri.layers.FeatureLayer.MODE_ONDEMAND, "outFields": ["*"] },
             "url": "http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/mt_parcels/MapServer/0"},
-          {"options": 
+          { "tiledServer": false, 
+            "options": 
             {"id": "Ground Water Wells", "visible": false, "mode": esri.layers.FeatureLayer.MODE_ONDEMAND, "outFields": ["*"] },
             "url": "http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/0"},
-          {"options": 
+          { "tiledServer": false,
+            "options": 
             {"id": "Point of Diversion: Surface", "visible": false, "mode": esri.layers.FeatureLayer.MODE_ONDEMAND, "outFields": ["*"] },
             "url": "http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/1"},
-          {"options": 
+          { "tiledServer": false,
+            "options": 
             {"id": "Point of Use: Ground Water", "visible": false, "mode": esri.layers.FeatureLayer.MODE_ONDEMAND, "outFields": ["*"] },
             "url": "http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/2"},
-          {"options": 
+          { "tiledServer": false,
+            "options": 
             {"id": "Point of Use: Surface Water", "visible": false, "mode": esri.layers.FeatureLayer.MODE_ONDEMAND, "outFields": ["*"] },
             "url": "http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/3"},
-          {"options": 
+          { "tiledServer": false,
+            "options": 
             {"id": "State Canels & Ditches", "visible": false, "mode": esri.layers.FeatureLayer.MODE_ONDEMAND, "outFields": ["*"] },
             "url": "http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/4"},
-          {"options": 
+          { "tiledServer": false,
+            "options": 
             {"id": "State Place of Use: Historical", "visible": false, "mode": esri.layers.FeatureLayer.MODE_ONDEMAND, "outFields": ["*"] },
             "url": "http://ec2-50-112-97-198.us-west-2.compute.amazonaws.com/arcgis/rest/services/montana/Montana_State_Irrigation/MapServer/5"}
         ];
@@ -107,7 +115,11 @@
         var layerDiv = dojo.create("div");
 
         dojo.forEach(layers, function(l) {
+          if(l.tileServer){
+            var lyr = new esri.layers.ArcGISTiledMapServiceLayer(l.url, l.options);
+          }, else {
           var lyr = new esri.layers.FeatureLayer(l.url, l.options);
+        };
           map.addLayer(lyr);
            // add a radio button for the layer
            dojo.create("input", {
