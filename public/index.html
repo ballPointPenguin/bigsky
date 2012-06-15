@@ -115,7 +115,7 @@
         var layerDiv = dojo.create("div");
 
         dojo.forEach(layers, function(l) {
-          if(l.tileServer){
+          if(l.tiledServer){
             var lyr = new esri.layers.ArcGISTiledMapServiceLayer(l.url, l.options);
           }, else {
           var lyr = new esri.layers.FeatureLayer(l.url, l.options);
